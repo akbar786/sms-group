@@ -1,4 +1,11 @@
 {
   "HTTP_PORT": 3000,
-  "WORKER": 1
+  "WORKER": 1,
+  "DATABASE": {
+    "username": "root",
+    "password": "root",
+    "database": "sms_group",
+    "host": "sms_group_mysql",
+    "dialect": "mysql"
+  }
 }
