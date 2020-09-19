@@ -1,2 +1,2 @@
 .env
-./servers/mysql/data/**
+/servers/mysql/data
