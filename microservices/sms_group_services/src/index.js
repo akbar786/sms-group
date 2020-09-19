@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const http = require('http');
 const cluster = require('cluster');
@@ -5,6 +7,8 @@ const numCPUs = require('os').cpus().length;
 
 // create express app
 const app = express();
+
+require('./config/config');
 
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
@@ -25,7 +29,7 @@ if (cluster.isMaster) {
   console.log('env', JSON.stringify(process.env));
 
   // starting app on http port
-  let port = process.env.API_PORT || 3000;
+  let port = process.env.API_PORT || process.env.HTTP_PORT || 3000;
   http.createServer(app).listen(port);
 
   console.log(`Worker ${process.pid} started`);
