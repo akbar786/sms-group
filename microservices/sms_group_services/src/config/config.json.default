@@ -6,6 +6,8 @@
     "password": "root",
     "database": "sms_group",
     "host": "sms_group_mysql",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "sequelize_data"
   }
 }

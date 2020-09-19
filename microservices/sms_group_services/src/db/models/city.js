@@ -1,9 +1,19 @@
 'use strict';
+
+const SELDOM =  'Seldom';
+const YEARLY = 'Yearly';
+const OFTEN = 'Often';
+const NEVER = 'Never';
+const ONCE = 'Once';
+const WEEKLY = 'Weekly';
+const MONTHLY = 'Monthly';
+const DAILY = 'Daily';  
+
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class City extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,16 +23,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  User.init({
+  City.init({
     city: DataTypes.STRING,
     start_date: DataTypes.Date,
     end_date: DataTypes.Date,
-    price: DataTypes.INTEGER,
-    status: DataTypes.STRING,
+    price: DataTypes.DECIMAL(10, 2),
+    status: DataTypes.ENUM(SELDOM, YEARLY, OFTEN, NEVER, ONCE, WEEKLY, MONTHLY, DAILY),
     color: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'City'
   });
-  return User;
+  return City;
 };

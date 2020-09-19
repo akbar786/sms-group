@@ -29,4 +29,6 @@ function executeCommand(cmd) {
   console.log(dbCreateResult);
   const dbMigrateResult = await executeCommand(`npx sequelize-cli db:migrate`)
   console.log(dbMigrateResult);
+  const dbSeedResult = await executeCommand(`npx sequelize-cli db:seed:all`)
+  console.log(dbSeedResult);
 })();
