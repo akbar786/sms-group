@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {City} from '../models/city.interface';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { AlertComponent } from '../alert/alert.component';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-list-city',
@@ -16,6 +17,9 @@ import { AlertComponent } from '../alert/alert.component';
   styleUrls: ['./list-city.component.scss']
 })
 export class ListCityComponent implements OnInit, AfterViewInit {
+
+  startDate: Date;
+  endDate: Date;
 
   limitOptions = [10, 20, 30]
 
@@ -83,7 +87,15 @@ export class ListCityComponent implements OnInit, AfterViewInit {
 
   getData(sortBy: string = 'id', sortOrder: SortDirection = 'desc', pageIndex: number = 1, pageSize: number = 20) {
     pageIndex++;
-    return this.http.get(`http://localhost:3000/city?sortBy=${sortBy}&sortOrder=${sortOrder.toUpperCase()}&limit=${pageSize}&page=${pageIndex}`);
+    let startDate = '';
+    if (this.startDate) {
+      startDate = this.startDate.getFullYear() + '-' + (this.startDate.getMonth() + 1) + '-' + this.startDate.getDate();
+    }
+    let endDate = '';
+    if (this.endDate) {
+      endDate = this.endDate.getFullYear() + '-' + (this.endDate.getMonth() + 1) + '-' + this.endDate.getDate();
+    }
+    return this.http.get(`http://localhost:3000/city?fromDate=${startDate}&toDate=${endDate}&sortBy=${sortBy}&sortOrder=${sortOrder.toUpperCase()}&limit=${pageSize}&page=${pageIndex}`);
   }
 
   addCity() {
@@ -134,6 +146,10 @@ export class ListCityComponent implements OnInit, AfterViewInit {
       }
       // this.router.navigate(['']);
     });
+  }
+
+  filter(e) {
+    this.refresh();
   }
 
 }

@@ -71,6 +71,8 @@ module.exports = {
       let page = req.query.page || 1;
       let limit = req.query.limit || 20;
 
+      console.log('input : ', fromDate, toDate, sortBy, sortOrder, page, limit);
+
       const cities = await cityHelper.fetchCity(fromDate, toDate, sortBy, sortOrder, parseInt(page), parseInt(limit));
 
       res.send({

@@ -4,16 +4,24 @@ module.exports = {
   async fetchCity(fromDate = null, toDate = null, sortBy = 'id', sortOrder = 'DESC', page = 1, limit = 20) {
     let where = {};
 
-    if (fromDate !== null) {
-      where.start_date = {
-        [db.Sequelize.Op.gte]: fromDate
-      }
+    try {
+      if (fromDate !== null) {
+        where.start_date = {
+          [db.Sequelize.Op.gte]: fromDate
+        }
+      }  
+    } catch (error) {
+      
     }
 
-    if (toDate !== null) {
-      where.end_date = {
-        [db.Sequelize.Op.lte]: toDate
-      }
+    try {
+      if (toDate !== null) {
+        where.end_date = {
+          [db.Sequelize.Op.lte]: toDate
+        }
+      }  
+    } catch (error) {
+      
     }
 
     let count = await db.City.count({where});
@@ -32,6 +40,10 @@ module.exports = {
     }
 
     let offset = limit * page - limit;
+
+    if (offset < 0) {
+      offset = 0;
+    }
 
     let obj = {
       where,
