@@ -15,3 +15,15 @@ Though this is a small app, please pay attention to your application structure.
 Host your code on github or bitbucket and include a README with instructions on
 how to install and run your application. Bonus-points for providing a
 docker-compose file to run your project :)
+
+### How to setup project
+
+1. You need docker & node run this project
+2. clone the repository
+3. run **npm install** in directories 
+    a. microserivces/sms_group_serivices
+    b. ui/sms_group_ui
+4. copy .env.default to .env
+5. copy ./microservices/sms_group_service/src/config/config.json.default to ./microservices/sms_group_service/src/config/config.json
+6. run **ng build --prod --aot**
+7. run **docker-compose up**
