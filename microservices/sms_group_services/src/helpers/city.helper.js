@@ -1,4 +1,4 @@
-const { updateCity } = require('../controllers/default.controller');
+const { updateCity, getCity } = require('../controllers/default.controller');
 const db = require('../db/models/index');
 module.exports = {
   async fetchCity(fromDate = null, toDate = null, sortBy = 'id', sortOrder = 'DESC', page = 1, limit = 20) {
@@ -48,6 +48,14 @@ module.exports = {
       count,
       data: result
     };
+  },
+  async getCity(id) {
+    return await db.City.findOne({
+      attributes: ['id', 'city', 'start_date', 'end_date', 'price', 'status', 'color'],
+      where: {
+        id
+      }
+    });
   },
   async saveNewCity(cityObj) {
     const cityModel = new db.City(cityObj);

@@ -61,7 +61,7 @@ module.exports = {
     }
     
   },
-  async getCity(req, res, next) {
+  async getCityList(req, res, next) {
     try {
 
       let fromDate = req.query.fromDate || null;
@@ -86,6 +86,23 @@ module.exports = {
         data: error
       });
     }
-    
+  },
+  async getCity(req, res, next) {
+    try {
+      let id = req.params.id;
+      let city = await cityHelper.getCity(id);
+      res.send({
+        status: true,
+        message: 'city fetched',
+        data: city
+      });
+    } catch (error) {
+      console.error(error);
+      res.send({
+        status: false,
+        message: 'failed to retrive data',
+        data: error
+      });
+    }
   }
 };
