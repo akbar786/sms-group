@@ -24,12 +24,35 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   City.init({
-    city: DataTypes.STRING,
-    start_date: DataTypes.Date,
-    end_date: DataTypes.Date,
-    price: DataTypes.DECIMAL(10, 2),
-    status: DataTypes.ENUM(SELDOM, YEARLY, OFTEN, NEVER, ONCE, WEEKLY, MONTHLY, DAILY),
-    color: DataTypes.STRING
+    city: {
+      type: DataTypes.STRING,
+      required: true,
+      allowNull: false
+    },
+    start_date: {
+      type: DataTypes.DATEONLY,
+      required: true,
+      allowNull: false
+    },
+    end_date: {
+      type: DataTypes.DATEONLY,
+      required: true,
+      allowNull: false
+    },
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      required: true,
+      allowNull: false
+    },
+    status: {
+      type: DataTypes.ENUM(SELDOM, YEARLY, OFTEN, NEVER, ONCE, WEEKLY, MONTHLY, DAILY),
+      defaultValue: SELDOM
+    },
+    color: {
+      type: DataTypes.STRING,
+      required: true,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'City'

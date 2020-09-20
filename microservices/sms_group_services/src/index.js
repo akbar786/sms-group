@@ -39,6 +39,11 @@ if (cluster.isMaster) {
   console.log(`sms-group app started listening on HTTP port ${port}`);
 }
 
+app.use((req, res, next) => {
+  console.log(`${new Date()} ${req.url} ${req.method} ${req.query} ${req.body}`);
+  next();
+})
+
 // set routes
 const routes = require('./routes/default.route');
 app.use(routes);
