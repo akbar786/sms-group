@@ -82,6 +82,7 @@ export class ListCityComponent implements OnInit, AfterViewInit {
   }
 
   getData(sortBy: string = 'id', sortOrder: SortDirection = 'desc', pageIndex: number = 1, pageSize: number = 20) {
+    pageIndex++;
     return this.http.get(`http://localhost:3000/city?sortBy=${sortBy}&sortOrder=${sortOrder.toUpperCase()}&limit=${pageSize}&page=${pageIndex}`);
   }
 
