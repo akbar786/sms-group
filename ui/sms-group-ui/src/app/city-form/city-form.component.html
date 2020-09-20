@@ -1,0 +1,46 @@
+<a routerLink="/">Back</a>
+
+
+<div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city" placeholder="enter city" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Start date</mat-label>
+      <input matInput formControlName="start_date" [matDatepicker]="startPicker" required>
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>End date</mat-label>
+      <input matInput formControlName="end_date" [matDatepicker]="endPicker" required>
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input type="number" matInput formControlName="price" placeholder="price" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Favorite food</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option *ngFor="let status of statusList" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Color</mat-label>
+      <input matInput type="color" formControlName="color" placeholder="select color" required>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Save</button>
+  </form>
+</div>
