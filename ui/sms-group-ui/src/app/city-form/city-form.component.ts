@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { City } from '../models/city.interface';
+import {MatDialog} from '@angular/material/dialog';
+import { AlertComponent } from '../alert/alert.component';
 
 @Component({
   selector: 'app-city-form',
@@ -20,7 +22,8 @@ export class CityFormComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    public dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
@@ -51,6 +54,64 @@ export class CityFormComponent implements OnInit {
   onSubmit(form: FormGroup) {
     console.log('Valid?', form.valid); // true or false
     console.log('Name', form.value);
+
+    if (form.valid) {
+      let url = 'http://localhost:3000/city';
+      if (this.cityId) {
+        url += `/${this.cityId}`;
+        this.http.put(url, form.value).subscribe((result: {
+          status: boolean,
+          message: string
+        }) => {
+          console.log('result', result);
+          if (result.status) {
+            const dialogRef = this.dialog.open(AlertComponent, {
+              data: {
+                title: 'Success',
+                message: result.message
+              }
+            });
+            dialogRef.afterClosed().subscribe((result) => {
+              this.router.navigate(['']);
+            });
+          } else {
+            this.dialog.open(AlertComponent, {
+              data: {
+                title: 'Error',
+                message: result.message
+              }
+            });
+          }
+        });
+      } else {
+        this.http.post(url, form.value).subscribe((result: {
+          status: boolean,
+          message: string
+        }) => {
+          console.log('result', result);
+          if (result.status) {
+            const dialogRef = this.dialog.open(AlertComponent, {
+              data: {
+                title: 'Success',
+                message: result.message
+              }
+            });
+            dialogRef.afterClosed().subscribe((result) => {
+              this.router.navigate(['']);
+            });
+          } else {
+            this.dialog.open(AlertComponent, {
+              data: {
+                title: 'Error',
+                message: result.message
+              }
+            });
+          }
+        });
+      }
+
+    }
+
   }
 
 }

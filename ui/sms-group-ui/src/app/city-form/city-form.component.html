@@ -1,11 +1,11 @@
 <a routerLink="/">Back</a>
 
-
 <div>
   <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
     <mat-form-field>
       <mat-label>City</mat-label>
       <input matInput formControlName="city" placeholder="enter city" required>
+      <mat-error *ngIf="myForm.controls['city'].hasError('required')">City is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -13,6 +13,7 @@
       <input matInput formControlName="start_date" [matDatepicker]="startPicker" required>
       <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
       <mat-datepicker #startPicker></mat-datepicker>
+      <mat-error *ngIf="myForm.controls['start_date'].hasError('required')">Start Date is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -20,11 +21,13 @@
       <input matInput formControlName="end_date" [matDatepicker]="endPicker" required>
       <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
       <mat-datepicker #endPicker></mat-datepicker>
+      <mat-error *ngIf="myForm.controls['end_date'].hasError('required')">End Date is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Price</mat-label>
       <input type="number" matInput formControlName="price" placeholder="price" required>
+      <mat-error *ngIf="myForm.controls['price'].hasError('required')">price is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -34,13 +37,15 @@
           {{status}}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="myForm.controls['status'].hasError('required')">status is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Color</mat-label>
       <input matInput type="color" formControlName="color" placeholder="select color" required>
+      <mat-error *ngIf="myForm.controls['color'].hasError('required')">color is required</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">Save</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="myForm.invalid">Save</button>
   </form>
 </div>
