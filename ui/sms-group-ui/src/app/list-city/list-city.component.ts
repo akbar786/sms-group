@@ -9,7 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {City} from '../models/city.interface';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { AlertComponent } from '../alert/alert.component';
-import { MatDatepicker } from '@angular/material/datepicker';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-list-city',
@@ -95,7 +95,7 @@ export class ListCityComponent implements OnInit, AfterViewInit {
     if (this.endDate) {
       endDate = this.endDate.getFullYear() + '-' + (this.endDate.getMonth() + 1) + '-' + this.endDate.getDate();
     }
-    return this.http.get(`http://localhost:3000/city?fromDate=${startDate}&toDate=${endDate}&sortBy=${sortBy}&sortOrder=${sortOrder.toUpperCase()}&limit=${pageSize}&page=${pageIndex}`);
+    return this.http.get(`${environment.api}/city?fromDate=${startDate}&toDate=${endDate}&sortBy=${sortBy}&sortOrder=${sortOrder.toUpperCase()}&limit=${pageSize}&page=${pageIndex}`);
   }
 
   addCity() {
@@ -117,7 +117,7 @@ export class ListCityComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log("", result);
       if (result) {
-        this.http.delete('http://localhost:3000/city/'+data.id).subscribe((result: {
+        this.http.delete(`${environment.api}/city/${data.id}`).subscribe((result: {
           status: boolean;
           message: string;
         }) => {

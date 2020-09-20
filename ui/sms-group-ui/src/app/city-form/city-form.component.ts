@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { City } from '../models/city.interface';
 import {MatDialog} from '@angular/material/dialog';
 import { AlertComponent } from '../alert/alert.component';
+import { environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-city-form',
@@ -40,7 +41,7 @@ export class CityFormComponent implements OnInit {
 
     if (this.route.snapshot.params.id) {
       this.cityId = +this.route.snapshot.params.id;
-      this.http.get('http://localhost:3000/city/'+this.cityId).subscribe((result: {
+      this.http.get(`${environment.api}/city/${this.cityId}`).subscribe((result: {
         status: boolean,
         data: City
       }) => {
@@ -56,7 +57,7 @@ export class CityFormComponent implements OnInit {
     console.log('Name', form.value);
 
     if (form.valid) {
-      let url = 'http://localhost:3000/city';
+      let url = `${environment.api}/city`;
       if (this.cityId) {
         url += `/${this.cityId}`;
         this.http.put(url, form.value).subscribe((result: {
