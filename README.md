@@ -23,7 +23,7 @@ docker-compose file to run your project :)
 3. run **npm install** in directories 
     a. microserivces/sms_group_serivices
     b. ui/sms_group_ui
-4. copy .env.default to .env
-5. copy ./microservices/sms_group_service/src/config/config.json.default to ./microservices/sms_group_service/src/config/config.json
+4. copy `.env.default` to `.env`
+5. copy `./microservices/sms_group_service/src/config/config.json.default` to `./microservices/sms_group_service/src/config/config.json`
 6. run **ng build --prod --aot**
 7. run **docker-compose up**
