@@ -5,17 +5,19 @@
 <div>
   <mat-form-field>
     <mat-label>Start date</mat-label>
-    <input matInput [(ngModel)]="startDate" (dateChange)="filter($event);" [matDatepicker]="startPicker" required>
+    <input matInput [(ngModel)]="startDate" (dateChange)="filter($event);" [matDatepicker]="startPicker">
     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
     <mat-datepicker #startPicker></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>End date</mat-label>
-    <input matInput [(ngModel)]="endDate" (dateChange)="filter($event);" [matDatepicker]="endPicker" required>
+    <input matInput [(ngModel)]="endDate" (dateChange)="filter($event);" [matDatepicker]="endPicker">
     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
     <mat-datepicker #endPicker></mat-datepicker>
   </mat-form-field>
+
+  <button (click)="clearFilters();" mat-raised-button color="primary">Clear Filters</button>
 
   <button (click)="addCity();" mat-raised-button color="primary">Add City</button>
 

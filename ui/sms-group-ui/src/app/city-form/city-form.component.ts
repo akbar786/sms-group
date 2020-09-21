@@ -47,6 +47,8 @@ export class CityFormComponent implements OnInit {
       }) => {
         console.log('city: ', result.data);
         this.myForm.setValue(result.data);
+        this.myForm.controls['start_date'].patchValue(new Date(result.data.start_date));
+        this.myForm.controls['end_date'].patchValue(new Date(result.data.end_date));
       });
     }
 
@@ -57,10 +59,28 @@ export class CityFormComponent implements OnInit {
     console.log('Name', form.value);
 
     if (form.valid) {
+
+      let startDate = this.myForm.controls['start_date'].value;
+      if (startDate) {
+        startDate = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
+      }
+
+      let endDate = this.myForm.controls['end_date'].value;
+      if (endDate) {
+        endDate = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate();
+      }
+
+      let dates = {
+        start_date: startDate,
+        end_date: endDate
+      }
+
+      let payload = {...form.value, ...dates};
+
       let url = `${environment.api}/city`;
       if (this.cityId) {
         url += `/${this.cityId}`;
-        this.http.put(url, form.value).subscribe((result: {
+        this.http.put(url, payload).subscribe((result: {
           status: boolean,
           message: string
         }) => {
@@ -85,7 +105,7 @@ export class CityFormComponent implements OnInit {
           }
         });
       } else {
-        this.http.post(url, form.value).subscribe((result: {
+        this.http.post(url, payload).subscribe((result: {
           status: boolean,
           message: string
         }) => {

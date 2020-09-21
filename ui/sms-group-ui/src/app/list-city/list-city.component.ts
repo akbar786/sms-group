@@ -152,4 +152,10 @@ export class ListCityComponent implements OnInit, AfterViewInit {
     this.refresh();
   }
 
+  clearFilters() {
+    this.startDate = null;
+    this.endDate = null;
+    this.refresh();
+  }
+
 }
